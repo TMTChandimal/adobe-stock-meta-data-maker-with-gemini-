@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adobe Stock Metadata Generator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="header">
+      <div class="brand">
+        <div class="icon-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Adobe Stock AI</h1>
+          <span class="subtitle">Gemini Automation</span>
+        </div>
+      </div>
+      <div class="status-pill ready" id="status-pill">Ready</div>
+    </header>
+
+    <main class="main-content">
+      <button id="btn-generate" class="primary-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <span>Process Selected Image</span>
+      </button>
+
+      <button id="btn-batch" class="primary-btn batch-btn" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); shadow: 0 6px 20px rgba(16, 185, 129, 0.35);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span>Process ALL Images (Loop)</span>
+      </button>
+
+      <div class="status-box" id="status-box">
+        <div class="status-header">Current Status</div>
+        <div class="status-message" id="status-message">Click above to start metadata extraction for selected Adobe Stock image.</div>
+      </div>
+
+      <div class="tab-links">
+        <button id="btn-open-adobe" class="secondary-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Adobe Stock
+        </button>
+        <button id="btn-open-gemini" class="secondary-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Open Gemini
+        </button>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Manifest V3 • Auto Inter-Tab Pipeline</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
