@@ -47,6 +47,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  function formatPlanName(plan) {
+    const map = {
+      'pro_monthly': 'Pro Monthly',
+      'pro_annual': 'Pro Annual',
+      'pro_lifetime': 'Pro Lifetime'
+    };
+    return map[plan] || (plan ? plan.toUpperCase() : 'Free Plan');
+  }
+
   // ── OVERVIEW VIEW ─────────────────────────────────────────────────────────
 
   async function refreshOverview() {
@@ -55,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const info = res.info;
         const usage = res.usage;
 
-        const planText = info.isActive ? `${info.plan} (ACTIVE)` : 'FREE PLAN';
+        const planText = info.isActive ? `${formatPlanName(info.plan)} (ACTIVE)` : 'FREE PLAN';
         document.getElementById('sidebar-plan-tag').textContent = planText;
         document.getElementById('ov-plan-name').textContent = planText;
 
@@ -418,7 +427,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const box = document.getElementById('lic-info-box');
         if (info.isActive) {
           box.style.display = 'block';
-          document.getElementById('lic-val-plan').textContent = info.plan;
+          document.getElementById('lic-val-plan').textContent = formatPlanName(info.plan);
           document.getElementById('lic-val-devices').textContent = `${info.activatedDevices} / ${info.activationLimit}`;
           document.getElementById('lic-val-expires').textContent = info.expiresAt ? new Date(info.expiresAt).toLocaleDateString() : 'Lifetime (No Expiry)';
           document.getElementById('lic-val-lease').textContent = info.offlineMode ? 'Active (Offline Grace)' : 'Active (Online)';
@@ -433,7 +442,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Populate payment info from configuration
     if (typeof PRODUCT_CONFIG !== 'undefined') {
       document.getElementById('pay-paypal-email').textContent = PRODUCT_CONFIG.PAYPAL?.RECEIVE_EMAIL || 'support@yourdomain.com';
-      document.getElementById('pay-btc-address').textContent = PRODUCT_CONFIG.BITCOIN?.ADDRESS || 'YOUR_BITCOIN_ADDRESS_HERE';
+      const btcAddr = PRODUCT_CONFIG.BITCOIN?.ADDRESS;
+      document.getElementById('pay-btc-address').textContent = (btcAddr && btcAddr !== 'YOUR_BITCOIN_ADDRESS_HERE') ? btcAddr : 'Available upon request (contact support)';
     }
 
     // Load automation preferences

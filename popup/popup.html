@@ -54,9 +54,30 @@
       </button>
     </div>
 
-    <!-- Quick License Input (collapsible or footer) -->
-    <div class="quick-license-section">
-      <div class="section-title">Quick License Activation</div>
+    <!-- Quick Action / Status Toast -->
+    <div id="popup-toast" class="popup-toast" style="display: none;"></div>
+
+    <!-- Active Pro License Status Card (Shown when Pro is active) -->
+    <div class="active-license-card" id="popup-pro-card" style="display: none;">
+      <div class="pro-card-header">
+        <div class="pro-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span id="popup-pro-plan-name">Pro License Active</span>
+        </div>
+        <span class="pro-status-pill">VERIFIED</span>
+      </div>
+      <div class="pro-card-details">
+        <span id="popup-pro-device-count">1 of 2 Devices</span>
+        <span>•</span>
+        <span id="popup-pro-expiry">No Expiry</span>
+      </div>
+    </div>
+
+    <!-- Quick License Input (Shown only when on Free plan) -->
+    <div class="quick-license-section" id="popup-license-form">
+      <div class="section-title">Upgrade to Pro with License Key</div>
       <div class="license-input-row">
         <input type="text" id="popup-license-input" placeholder="ASMP-PRO-XXXX...">
         <button id="popup-btn-activate">Activate</button>

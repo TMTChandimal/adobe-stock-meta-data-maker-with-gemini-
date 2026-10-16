@@ -5,6 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusBadge = document.getElementById('popup-status-badge');
   const usageText = document.getElementById('popup-usage-text');
   const usageFill = document.getElementById('popup-usage-fill');
+  const proCard = document.getElementById('popup-pro-card');
+  const licenseForm = document.getElementById('popup-license-form');
+  const toast = document.getElementById('popup-toast');
+
+  let toastTimer = null;
+  function showToast(message, type = 'info', duration = 4000) {
+    if (!toast) return;
+    clearTimeout(toastTimer);
+    toast.textContent = message;
+    toast.className = `popup-toast ${type}`;
+    toast.style.display = 'block';
+    toastTimer = setTimeout(() => {
+      toast.style.display = 'none';
+    }, duration);
+  }
+
+  function formatPlan(plan) {
+    const map = {
+      'pro_monthly': 'Pro Monthly',
+      'pro_annual': 'Pro Annual',
+      'pro_lifetime': 'Pro Lifetime'
+    };
+    return map[plan] || (plan ? plan.toUpperCase() : 'Pro Active');
+  }
 
   // 1. Refresh Entitlements & Usage
   function refreshInfo() {
@@ -14,16 +38,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const usage = res.usage;
 
         if (info.isActive) {
-          planBadge.textContent = `${info.plan} (PRO)`;
+          const friendlyPlan = formatPlan(info.plan);
+          planBadge.textContent = 'PRO ACTIVE';
           planBadge.style.color = '#10b981';
           usageText.textContent = `${usage.used} (Unlimited Pro)`;
           usageFill.style.width = '100%';
+
+          if (proCard) {
+            proCard.style.display = 'flex';
+            document.getElementById('popup-pro-plan-name').textContent = friendlyPlan;
+            document.getElementById('popup-pro-device-count').textContent = `${info.activatedDevices || 1} of ${info.activationLimit || 2} Devices`;
+            document.getElementById('popup-pro-expiry').textContent = info.expiresAt
+              ? `Renews ${new Date(info.expiresAt).toLocaleDateString()}`
+              : 'Lifetime Access';
+          }
+          if (licenseForm) licenseForm.style.display = 'none';
         } else {
           planBadge.textContent = 'FREE PLAN';
           planBadge.style.color = '#60a5fa';
           usageText.textContent = `${usage.used} / ${usage.limit}`;
           const pct = Math.min(100, Math.round((usage.used / usage.limit) * 100));
           usageFill.style.width = `${pct}%`;
+
+          if (proCard) proCard.style.display = 'none';
+          if (licenseForm) licenseForm.style.display = 'block';
         }
       }
     });
@@ -47,13 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('popup-btn-process-selected')?.addEventListener('click', () => {
     chrome.tabs.query({ url: 'https://contributor.stock.adobe.com/*' }, (tabs) => {
       if (!tabs || tabs.length === 0) {
-        alert('Please open an Adobe Stock Contributor tab with an uploaded asset selected first.');
+        showToast('Please open Adobe Stock Contributor with an asset selected first.', 'error', 5000);
         return;
       }
       // Target verified active or frontmost Adobe tab, not arbitrary tabs[0]
       const targetTab = tabs.find(t => t.active) || tabs[0];
       chrome.tabs.sendMessage(targetTab.id, { action: 'TRIGGER_AUTO_METADATA' });
       statusBadge.textContent = 'Triggered';
+      showToast('⚡ Sent generation command to Adobe Stock!', 'success', 3000);
       setTimeout(refreshInfo, 800);
     });
   });
@@ -68,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('popup-btn-activate')?.addEventListener('click', () => {
     const input = document.getElementById('popup-license-input');
     const code = (input.value || '').trim();
-    if (!code) return alert('Please enter a license code.');
+    if (!code) return showToast('Please enter a license code.', 'error', 3000);
 
     const btn = document.getElementById('popup-btn-activate');
     btn.disabled = true;
@@ -78,11 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = false;
       btn.textContent = 'Activate';
       if (res?.success) {
-        alert('🎉 Pro license activated successfully!');
+        showToast('🎉 Pro license activated successfully!', 'success', 5000);
         input.value = '';
         refreshInfo();
       } else {
-        alert(`❌ Activation Failed: ${res?.error || 'Unknown error'}`);
+        showToast(`❌ ${res?.error || 'Activation Failed'}`, 'error', 5000);
       }
     });
   });

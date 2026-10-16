@@ -28,6 +28,39 @@
     const container = document.createElement('div');
     container.id = 'gemini-adobe-floating-container';
 
+    // Collapsed Mini Pill
+    const miniPill = document.createElement('div');
+    miniPill.id = 'asmp-mini-pill';
+    miniPill.className = 'asmp-mini-pill';
+    miniPill.style.display = 'none';
+    miniPill.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+      <span>ASMP Pro</span>
+    `;
+
+    // Floating Card Wrapper
+    const card = document.createElement('div');
+    card.id = 'asmp-floating-card';
+    card.className = 'asmp-floating-card';
+
+    // Draggable Header Bar
+    const cardHeader = document.createElement('div');
+    cardHeader.className = 'asmp-card-header';
+    cardHeader.innerHTML = `
+      <div class="asmp-header-brand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span>ADOBE STOCK METADATA PRO</span>
+        <span class="asmp-header-badge">PRO</span>
+      </div>
+      <div class="asmp-header-controls">
+        <button class="asmp-header-btn" id="asmp-btn-minimize" title="Minimize toolbar">─</button>
+      </div>
+    `;
+
     toastElement = document.createElement('div');
     toastElement.className = 'gemini-adobe-toast';
     toastElement.innerHTML = `
@@ -102,11 +135,97 @@
     buttonGroup.appendChild(stopBatchButton);
     buttonGroup.appendChild(workspaceButton);
 
-    container.appendChild(toastElement);
-    container.appendChild(buttonGroup);
+    card.appendChild(cardHeader);
+    card.appendChild(toastElement);
+    card.appendChild(buttonGroup);
+
+    container.appendChild(miniPill);
+    container.appendChild(card);
     document.body.appendChild(container);
 
     statusTextElement = container.querySelector('#gemini-status-text');
+
+    // Dragging logic
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let initialLeft = 0, initialTop = 0;
+
+    if (cardHeader && typeof cardHeader.addEventListener === 'function') {
+      cardHeader.addEventListener('mousedown', (e) => {
+        if (e.target?.closest?.('#asmp-btn-minimize')) return;
+        isDragging = true;
+        startX = e.clientX || 0;
+        startY = e.clientY || 0;
+        const rect = container.getBoundingClientRect ? container.getBoundingClientRect() : { left: 0, top: 0 };
+        initialLeft = rect.left || 0;
+        initialTop = rect.top || 0;
+        e.preventDefault?.();
+      });
+    }
+
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = (e.clientX || 0) - startX;
+        const dy = (e.clientY || 0) - startY;
+        const winWidth = window.innerWidth || 1200;
+        const winHeight = window.innerHeight || 800;
+        const newLeft = Math.max(10, Math.min(winWidth - (container.offsetWidth || 300) - 10, initialLeft + dx));
+        const newTop = Math.max(10, Math.min(winHeight - (container.offsetHeight || 120) - 10, initialTop + dy));
+        container.style.bottom = 'auto';
+        container.style.right = 'auto';
+        container.style.left = `${newLeft}px`;
+        container.style.top = `${newTop}px`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          try {
+            chrome.storage?.local?.set({
+              asmp_toolbar_pos: {
+                left: container.style.left,
+                top: container.style.top
+              }
+            });
+          } catch (err) {}
+        }
+      });
+    }
+
+    // Collapse / Expand handlers
+    const minimizeBtn = cardHeader.querySelector('#asmp-btn-minimize');
+    minimizeBtn?.addEventListener('click', () => {
+      card.style.display = 'none';
+      miniPill.style.display = 'flex';
+      try {
+        chrome.storage?.local?.set({ asmp_toolbar_collapsed: true });
+      } catch (err) {}
+    });
+
+    miniPill.addEventListener('click', () => {
+      miniPill.style.display = 'none';
+      card.style.display = 'flex';
+      try {
+        chrome.storage?.local?.set({ asmp_toolbar_collapsed: false });
+      } catch (err) {}
+    });
+
+    // Restore saved position & collapsed state
+    try {
+      chrome.storage?.local?.get(['asmp_toolbar_pos', 'asmp_toolbar_collapsed'], (res) => {
+        if (res?.asmp_toolbar_pos) {
+          container.style.bottom = 'auto';
+          container.style.right = 'auto';
+          container.style.left = res.asmp_toolbar_pos.left;
+          container.style.top = res.asmp_toolbar_pos.top;
+        }
+        if (res?.asmp_toolbar_collapsed) {
+          card.style.display = 'none';
+          miniPill.style.display = 'flex';
+        }
+      });
+    } catch (e) {}
   }
 
   function showToast(message, isLoading = false) {
@@ -773,7 +892,17 @@
 
   function convertImgToDataUrl(imgElement) {
     return new Promise(async (resolve) => {
-      const src = imgElement.currentSrc || imgElement.src;
+      if (imgElement && typeof imgElement.complete === 'boolean' && !imgElement.complete && imgElement.src) {
+        try {
+          await new Promise((res) => {
+            imgElement.addEventListener('load', res, { once: true });
+            imgElement.addEventListener('error', res, { once: true });
+            setTimeout(res, 3000);
+          });
+        } catch (e) {}
+      }
+
+      const src = imgElement?.currentSrc || imgElement?.src;
       if (!src) return resolve(null);
       if (src.startsWith('data:image')) return resolve(src);
 
