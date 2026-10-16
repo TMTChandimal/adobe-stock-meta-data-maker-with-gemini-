@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adobe Stock Metadata Pro — Workspace</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="workspace-layout">
+
+    <!-- ── SIDEBAR NAVIGATION (5 COHERENT VIEWS) ──────────────── -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span class="brand-title">Adobe Stock Pro</span>
+        </div>
+        <div class="plan-tag" id="sidebar-plan-tag">FREE PLAN</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="overview" id="nav-overview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <span>Overview</span>
+        </button>
+
+        <button class="nav-item" data-view="generate" id="nav-generate">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Generate & Review</span>
+        </button>
+
+        <button class="nav-item" data-view="batch" id="nav-batch">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          <span>Batch Queue</span>
+          <span class="pro-chip">PRO</span>
+        </button>
+
+        <button class="nav-item" data-view="history" id="nav-history">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>History & Export</span>
+        </button>
+
+        <button class="nav-item" data-view="settings" id="nav-settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>License & Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-dot online"></span>
+          <span id="connection-status-text">Ready</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT AREA ─────────────────────────────────── -->
+    <main class="content-area">
+
+      <!-- ═══ VIEW 1: OVERVIEW ═════════════════════════════════ -->
+      <section class="view-panel active" id="view-overview">
+        <div class="panel-header">
+          <h1>System Overview</h1>
+          <p>Monitor your workflow status, connected tabs, and daily generation quota.</p>
+        </div>
+
+        <div class="grid-cards">
+          <!-- Plan & Quota Card -->
+          <div class="card">
+            <h3>Plan & Usage</h3>
+            <div class="quota-box">
+              <div class="quota-label" id="ov-plan-name">Free Plan</div>
+              <div class="quota-progress-bar">
+                <div class="quota-progress-fill" id="ov-quota-fill" style="width: 0%;"></div>
+              </div>
+              <div class="quota-caption" id="ov-quota-caption">0 / 20 generations used today</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="ov-btn-upgrade">Manage License</button>
+          </div>
+
+          <!-- Connected Services Card -->
+          <div class="card">
+            <h3>Tab Integrations</h3>
+            <div class="service-item">
+              <div class="service-meta">
+                <span class="service-name">Adobe Stock Contributor</span>
+                <span class="service-desc">contributor.stock.adobe.com</span>
+              </div>
+              <span class="badge" id="ov-status-adobe">Checking...</span>
+            </div>
+            <div class="service-item">
+              <div class="service-meta">
+                <span class="service-name">Google Gemini Web Session</span>
+                <span class="service-desc">gemini.google.com</span>
+              </div>
+              <span class="badge" id="ov-status-gemini">Checking...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Transparency Banner -->
+        <div class="card card-accent" style="margin-top: 1.5rem;">
+          <h3>Privacy & Data Architecture</h3>
+          <p style="font-size: 0.9rem; color: #94a3b8; line-height: 1.6;">
+            Images and metadata prompts are processed directly within your browser's Google Gemini web session under your personal Google account. Images are never uploaded to our servers. Only pseudonymous license activation data is communicated to our licensing backend.
+          </p>
+          <div style="display:flex; gap: 10px; margin-top: 1rem;">
+            <a href="../docs/privacy-policy.html" target="_blank" class="btn btn-secondary btn-sm">Privacy Policy</a>
+            <a href="../docs/terms.html" target="_blank" class="btn btn-secondary btn-sm">Terms of Service</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ VIEW 2: GENERATE & REVIEW ════════════════════════ -->
+      <section class="view-panel" id="view-generate">
+        <div class="panel-header">
+          <h1>Generate & Review Metadata</h1>
+          <p>Inspect generated titles and prioritized keywords before applying them to Adobe Stock.</p>
+        </div>
+
+        <div class="review-layout">
+          <!-- Left: Asset Inspector -->
+          <div class="card review-card">
+            <h3>Selected Asset</h3>
+            <div class="asset-preview-container">
+              <div class="asset-preview-placeholder" id="gr-preview-placeholder">No image selected in Adobe Stock</div>
+              <img id="gr-asset-preview" style="display:none; max-width: 100%; border-radius: 6px;" alt="Asset Preview">
+            </div>
+            <div class="asset-meta-row" style="margin-top: 1rem;">
+              <span class="label">Asset ID:</span>
+              <span class="value" id="gr-asset-id">None</span>
+            </div>
+            <div class="asset-meta-row">
+              <span class="label">Task Status:</span>
+              <span class="value" id="gr-task-status">IDLE</span>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 1.5rem;">
+              <button class="btn btn-primary" id="gr-btn-generate">Generate Metadata</button>
+              <button class="btn btn-danger" id="gr-btn-cancel" style="display:none;">Stop</button>
+            </div>
+          </div>
+
+          <!-- Right: Editable Review Form -->
+          <div class="card review-editor">
+            <h3>Metadata Review</h3>
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>Title (50-70 characters recommended)</label>
+                <span class="char-count" id="gr-title-count">0 / 200</span>
+              </div>
+              <input type="text" id="gr-input-title" placeholder="Descriptive, factual title..." maxlength="200">
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>Keywords (Ranked by relevance priority)</label>
+                <span class="char-count" id="gr-keyword-count">0 keywords</span>
+              </div>
+              <textarea id="gr-input-keywords" rows="5" placeholder="keyword1, keyword2, keyword3..."></textarea>
+            </div>
+
+            <div class="action-bar">
+              <button class="btn btn-secondary" id="gr-btn-undo" disabled>Restore Original</button>
+              <button class="btn btn-success" id="gr-btn-apply" disabled>Apply to Adobe Stock</button>
+            </div>
+            <p style="font-size: 0.75rem; color: #64748b; margin-top: 0.8rem;">
+              * Never submits or publishes assets. You remain in full control to click "Submit" on Adobe Stock.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ VIEW 3: BATCH QUEUE ══════════════════════════════ -->
+      <section class="view-panel" id="view-batch">
+        <div class="panel-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h1>Batch Queue</h1>
+              <p>Process multiple uploaded images sequentially with custom inter-item delays.</p>
+            </div>
+            <div class="queue-controls">
+              <button class="btn btn-secondary btn-sm" id="bq-btn-clear">Clear Queue</button>
+              <button class="btn btn-danger btn-sm" id="bq-btn-stop" style="display:none;">Stop Batch</button>
+              <button class="btn btn-primary btn-sm" id="bq-btn-start">Start Batch</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="bq-pro-banner" style="display: none; padding: 0.85rem 1rem; margin-bottom: 1rem; border-radius: 8px; font-size: 0.85rem;"></div>
+          <div class="batch-settings-row">
+            <div class="form-group-inline">
+              <label>Inter-Item Delay (ms):</label>
+              <input type="number" id="bq-delay" value="1500" min="500" max="10000" style="width: 100px;">
+            </div>
+            <div class="form-group-inline">
+              <label>
+                <input type="checkbox" id="bq-skip-existing" checked>
+                Skip images that already have metadata
+              </label>
+            </div>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Asset ID</th>
+                <th>Status</th>
+                <th>Title Preview</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bq-table-body">
+              <tr><td colspan="4" style="text-align:center; padding: 2rem; color: #64748b;">No items in batch queue.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ VIEW 4: HISTORY & EXPORT ═════════════════════════ -->
+      <section class="view-panel" id="view-history">
+        <div class="panel-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h1>History & Export</h1>
+              <p>Review previously generated metadata and export in spreadsheet-safe formats.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" id="exp-btn-csv-generic">Export CSV (Spreadsheet-Safe)</button>
+              <button class="btn btn-secondary btn-sm" id="exp-btn-csv-adobe">Export Adobe CSV</button>
+              <button class="btn btn-secondary btn-sm" id="exp-btn-json">Export JSON</button>
+              <button class="btn btn-danger btn-sm" id="exp-btn-clear">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Asset ID</th>
+                <th>Title</th>
+                <th>Keywords</th>
+              </tr>
+            </thead>
+            <tbody id="hist-table-body">
+              <tr><td colspan="4" style="text-align:center; padding: 2rem; color: #64748b;">No history records found.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ VIEW 5: LICENSE & SETTINGS ═══════════════════════ -->
+      <section class="view-panel" id="view-settings">
+        <div class="panel-header">
+          <h1>License & Preferences</h1>
+          <p>Activate your Pro license key and configure automation behaviors.</p>
+        </div>
+
+        <div class="grid-cards">
+          <!-- License Activation Card -->
+          <div class="card">
+            <h3>Pro License Activation</h3>
+            <div class="form-group">
+              <label>License Key</label>
+              <input type="text" id="lic-input-code" placeholder="ASMP-PRO-XXXX-XXXX...">
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-primary" id="lic-btn-activate">Activate License</button>
+              <button class="btn btn-secondary" id="lic-btn-deactivate" style="display:none;">Deactivate</button>
+            </div>
+            <div class="license-info-box" id="lic-info-box" style="display:none; margin-top: 1rem;">
+              <div class="asset-meta-row"><span class="label">Plan:</span><span class="value" id="lic-val-plan">—</span></div>
+              <div class="asset-meta-row"><span class="label">Devices:</span><span class="value" id="lic-val-devices">—</span></div>
+              <div class="asset-meta-row"><span class="label">Expires:</span><span class="value" id="lic-val-expires">—</span></div>
+              <div class="asset-meta-row"><span class="label">Offline Lease:</span><span class="value" id="lic-val-lease">—</span></div>
+            </div>
+          </div>
+
+          <!-- Purchase Instructions Card -->
+          <div class="card">
+            <h3>Manual License Acquisition</h3>
+            <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5;">
+              Licenses are issued manually after payment verification. These are fixed-duration prepaid licenses (not recurring subscriptions).
+            </p>
+            <div class="payment-method-box">
+              <div style="font-weight: 600; font-size: 0.9rem;">PayPal Payment:</div>
+              <div style="font-size: 0.85rem; color: #94a3b8;" id="pay-paypal-email">support@yourdomain.com</div>
+            </div>
+            <div class="payment-method-box" style="margin-top: 0.75rem;">
+              <div style="font-weight: 600; font-size: 0.9rem;">Bitcoin Payment:</div>
+              <div style="font-size: 0.8rem; font-family: monospace; color: #60a5fa; word-break: break-all;" id="pay-btc-address">YOUR_BITCOIN_ADDRESS</div>
+              <button class="btn btn-secondary btn-sm" id="pay-btn-copy-btc" style="margin-top: 0.5rem;">Copy BTC Address</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Automation Preferences -->
+        <div class="card" style="margin-top: 1.5rem;">
+          <h3>Automation Preferences</h3>
+          <div class="form-group-inline">
+            <label><input type="checkbox" id="pref-autofill-title" checked> Autofill Title immediately upon generation</label>
+          </div>
+          <div class="form-group-inline" style="margin-top: 0.5rem;">
+            <label><input type="checkbox" id="pref-autofill-keywords" checked> Autofill Keywords immediately upon generation</label>
+          </div>
+          <div class="form-group" style="margin-top: 1rem;">
+            <label>Custom Gemini Prompt (Leave blank to use official Adobe Stock guidelines)</label>
+            <textarea id="pref-custom-prompt" rows="4" placeholder="Optional custom prompt..."></textarea>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="pref-btn-save">Save Preferences</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FIRST-USE CONSENT MODAL ─────────────────────────────── -->
+  <div class="modal-backdrop" id="consent-modal" style="display:none;">
+    <div class="modal-box">
+      <h2>Important Notice & Privacy Consent</h2>
+      <p style="font-size: 0.9rem; line-height: 1.6; color: #cbd5e1;">
+        Before using <strong>Adobe Stock Metadata Pro</strong>, please review how data is processed:
+      </p>
+      <ul style="font-size: 0.85rem; line-height: 1.6; color: #94a3b8; padding-left: 1.2rem;">
+        <li><strong>AI Metadata Generation:</strong> Your selected stock image and metadata prompt are processed within your active Google Gemini web session under your personal Google account. We do not store, intercept, or send your images to third-party servers.</li>
+        <li><strong>Licensing & Device Verification:</strong> When activating a license, a pseudonymous installation identifier and your license code are validated with our backend to enforce device limits.</li>
+        <li><strong>No Automatic Submission:</strong> This extension never automatically submits or publishes your stock assets. You retain full review and submission control.</li>
+      </ul>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
+        <button class="btn btn-primary" id="consent-btn-accept">I Understand & Agree</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../src/config/product.config.js"></script>
+  <script src="../src/lib/messages.js"></script>
+  <script src="../src/lib/export.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

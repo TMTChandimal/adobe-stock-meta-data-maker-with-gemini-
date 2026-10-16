@@ -3,71 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adobe Stock Metadata Generator</title>
+  <title>Adobe Stock Metadata Pro</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="popup-container">
-    <header class="header">
-      <div class="brand">
-        <div class="icon-badge">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+  <div class="popup-launcher">
+
+    <!-- Header -->
+    <header class="launcher-header">
+      <div class="brand-row">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
           </svg>
         </div>
         <div>
-          <h1>Adobe Stock AI</h1>
-          <span class="subtitle">Gemini Automation</span>
+          <div class="brand-name">Adobe Stock Pro</div>
+          <div class="brand-plan-badge" id="popup-plan-badge">FREE PLAN</div>
         </div>
       </div>
-      <div class="status-pill ready" id="status-pill">Ready</div>
+      <div class="status-indicator-badge" id="popup-status-badge">Ready</div>
     </header>
 
-    <main class="main-content">
-      <button id="btn-generate" class="primary-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- Quota & Quick Info -->
+    <div class="launcher-card">
+      <div class="usage-row">
+        <span class="usage-label">Today's Generations:</span>
+        <span class="usage-value" id="popup-usage-text">0 / 20</span>
+      </div>
+      <div class="usage-bar">
+        <div class="usage-fill" id="popup-usage-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-group">
+      <button class="btn-action primary" id="popup-btn-process-selected">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="5 3 19 12 5 21 5 3"/>
         </svg>
         <span>Process Selected Image</span>
       </button>
 
-      <button id="btn-batch" class="primary-btn batch-btn" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); shadow: 0 6px 20px rgba(16, 185, 129, 0.35);">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      <button class="btn-action secondary" id="popup-btn-workspace">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <line x1="9" y1="3" x2="9" y2="21"/>
         </svg>
-        <span>Process ALL Images (Loop)</span>
+        <span>Open Full Workspace</span>
       </button>
+    </div>
 
-      <div class="status-box" id="status-box">
-        <div class="status-header">Current Status</div>
-        <div class="status-message" id="status-message">Click above to start metadata extraction for selected Adobe Stock image.</div>
+    <!-- Quick License Input (collapsible or footer) -->
+    <div class="quick-license-section">
+      <div class="section-title">Quick License Activation</div>
+      <div class="license-input-row">
+        <input type="text" id="popup-license-input" placeholder="ASMP-PRO-XXXX...">
+        <button id="popup-btn-activate">Activate</button>
       </div>
+    </div>
 
-      <div class="tab-links">
-        <button id="btn-open-adobe" class="secondary-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
-          Adobe Stock
-        </button>
-        <button id="btn-open-gemini" class="secondary-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
-          Open Gemini
-        </button>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <span>Manifest V3 • Auto Inter-Tab Pipeline</span>
+    <!-- Footer Links -->
+    <footer class="launcher-footer">
+      <a href="../docs/privacy-policy.html" target="_blank">Privacy</a>
+      <span>•</span>
+      <a href="../docs/terms.html" target="_blank">Terms</a>
+      <span>•</span>
+      <a href="../docs/refund-policy.html" target="_blank">Refund Policy</a>
     </footer>
+
   </div>
 
+  <script src="../src/config/product.config.js"></script>
+  <script src="../src/lib/messages.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

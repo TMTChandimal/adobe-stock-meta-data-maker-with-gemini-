@@ -1,45 +1,81 @@
 {
   "manifest_version": 3,
-  "name": "Adobe Stock Metadata Generator (Gemini AI)",
-  "version": "1.0.0",
-  "description": "Automately extract Adobe Stock image, request metadata from Gemini AI tab, and autofill Title and Keywords.",
+  "name": "Adobe Stock Metadata Pro",
+  "version": "2.0.0",
+  "description": "AI-powered metadata generator for Adobe Stock contributors. Generates and applies optimized titles and prioritized keywords using Gemini AI.",
+
   "permissions": [
+    "alarms",
     "tabs",
     "scripting",
     "activeTab",
-    "storage"
+    "storage",
+    "sidePanel",
+    "clipboardWrite",
+    "clipboardRead"
   ],
+
   "host_permissions": [
     "https://contributor.stock.adobe.com/*",
-    "https://gemini.google.com/*"
+    "https://*.ftcdn.net/*",
+    "https://gemini.google.com/*",
+    "https://ttrrilnouedeifqjttai.supabase.co/*"
   ],
+
+  "optional_host_permissions": [
+    "https://contributor.magnific.com/*",
+    "https://contributor.freepik.com/*"
+  ],
+
   "background": {
     "service_worker": "background.js"
   },
+
+  "side_panel": {
+    "default_path": "ui/app.html"
+  },
+
   "content_scripts": [
     {
       "matches": ["https://contributor.stock.adobe.com/*"],
-      "js": ["content_adobe.js"],
+      "js": [
+        "src/config/product.config.js",
+        "src/lib/messages.js",
+        "src/lib/storage.js",
+        "src/lib/entitlements.js",
+        "src/lib/metadata-validator.js",
+        "content_adobe.js"
+      ],
       "css": ["content_adobe.css"],
       "run_at": "document_idle"
     },
     {
       "matches": ["https://gemini.google.com/*"],
-      "js": ["content_gemini.js"],
+      "js": [
+        "src/lib/messages.js",
+        "src/lib/metadata-validator.js",
+        "content_gemini.js"
+      ],
       "run_at": "document_idle"
     }
   ],
+
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
       "128": "icons/icon128.png"
     }
   },
+
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }

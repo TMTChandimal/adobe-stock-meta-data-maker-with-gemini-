@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Adobe Stock Metadata Pro</title>
+  <style>
+    body { font-family: -apple-system, system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #1e293b; }
+    h1 { color: #0f172a; border-bottom: 2px solid #3b82f6; padding-bottom: 12px; }
+    h2 { color: #334155; margin-top: 32px; }
+    p  { color: #475569; }
+    .meta { color: #94a3b8; font-size: 14px; }
+    a { color: #3b82f6; }
+    .callout { background: #f8fafc; border-left: 4px solid #3b82f6; padding: 12px 16px; margin: 16px 0; border-radius: 4px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="meta">Adobe Stock Metadata Pro Chrome Extension<br>Effective Date: October 2026</p>
+
+<div class="callout">
+  <strong>Key Privacy Summary:</strong> Selected stock images and prompts are processed locally in your browser and sent directly to Google Gemini under your personal Google account. Images are never uploaded to or stored on our servers.
+</div>
+
+<h2>1. Information We Process and Collect</h2>
+<ul>
+  <li><strong>Pseudonymous Installation Identifier:</strong> The extension generates a random UUID stored in your browser's local storage. When you activate or validate a license, a cryptographic SHA-256 hash of this identifier is transmitted to our Supabase licensing backend to enforce device activation limits. Because this hash is associated with your license record and email address, it is pseudonymous data, not completely anonymous.</li>
+  <li><strong>License Information:</strong> Paid license keys and active verification tokens are stored locally in your browser (<code>chrome.storage.local</code>). Customer purchase records (email, order reference, plan, expiration, active device count) are stored in our private licensing database.</li>
+  <li><strong>Local Metadata History:</strong> Generated titles and keywords are saved locally in your browser if enabled. This history resides strictly on your device and can be cleared or exported at any time.</li>
+  <li><strong>Temporary Image Processing:</strong> When an image is selected on Adobe Stock, a temporary DataURL is held in bounded local memory or storage solely for transfer to your Gemini tab. It is purged immediately after prompt dispatch or upon task completion (maximum 15-minute retention).</li>
+</ul>
+
+<h2>2. External Services and Third-Party Data Transfer</h2>
+<ul>
+  <li><strong>Google Gemini (gemini.google.com):</strong> The extension automates interactions with your existing Google Gemini web session. Your image and prompt are sent directly from your browser to Google and are governed by Google's Privacy Policy and your Google account settings. We do not operate an intermediate AI proxy server.</li>
+  <li><strong>Supabase Licensing Backend:</strong> When activating a license or performing periodic heartbeat validation, the extension communicates with our Supabase backend to verify cryptographic validity, check device limits, and check revocation status.</li>
+</ul>
+
+<h2>3. Cryptographic Transparency: Signing vs. Encryption</h2>
+<p>
+  License codes issued by our administration tools use Ed25519 asymmetric cryptographic signatures. The payload (which includes plan name, expiration date, and customer email) is Base64URL-encoded and signed, <em>not encrypted</em>. Anyone inspecting the code can decode and read the plan details. We minimize the personal information included in license codes to prevent unnecessary exposure.
+</p>
+
+<h2>4. What We Do NOT Collect</h2>
+<ul>
+  <li>No browsing history outside of the designated contributor and Gemini tabs.</li>
+  <li>No passwords, banking details, or crypto private keys.</li>
+  <li>No hardware MAC addresses, serial numbers, or invasive browser fingerprinting.</li>
+  <li>No stock submission automation: The extension never automatically publishes or submits assets for stock review.</li>
+</ul>
+
+<h2>5. Data Retention and Deletion Controls</h2>
+<ul>
+  <li><strong>Local Data:</strong> All local extension data (settings, history, license cache) is deleted immediately when you uninstall the extension or click "Clear" in the extension workspace.</li>
+  <li><strong>Backend Records:</strong> License records are retained for the duration of the license and for accounting/support records. Customers may request complete deletion of their license history by contacting support.</li>
+</ul>
+
+<h2>6. Contact and Support</h2>
+<p>
+  If you have questions about this privacy policy or your personal data, contact support at:
+  <a href="mailto:support@yourdomain.com">support@yourdomain.com</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+# ════════════════════════════════════════════════════════
+# .gitignore — Adobe Stock Metadata Pro
+# ════════════════════════════════════════════════════════
+
+# ── PRIVATE KEYS (NEVER COMMIT) ──────────────────────────
+license-admin/keys/
+license-admin/keys/*.b64
+license-admin/keys/*.pem
+license-admin/keys/*.key
+*.privkey
+*.privatekey
+private-key*
+secrets/
+
+# ── ENVIRONMENT FILES ─────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.*.local
+license-admin/.env
+backend/.env
+!.env.example
+!license-admin/.env.example
+!backend/.env.example
+
+# ── DATABASE ──────────────────────────────────────────────
+license-admin/data/
+*.db
+*.sqlite
+*.sqlite3
+
+# ── NODE MODULES ──────────────────────────────────────────
+node_modules/
+license-admin/node_modules/
+
+# ── BUILD ARTIFACTS ───────────────────────────────────────
+dist/
+build/
+*.zip
+
+# ── OS FILES ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── EDITOR ────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ── LOGS ──────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── TEMPORARY ─────────────────────────────────────────────
+tmp/
+temp/
+.cache/

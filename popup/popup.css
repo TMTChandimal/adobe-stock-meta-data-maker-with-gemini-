@@ -1,176 +1,204 @@
-/* popup.css - Premium sleek dark theme for extension popup */
+/* popup/popup.css - Compact Launcher Theme */
+
 :root {
-  --bg-primary: #0f172a;
-  --bg-card: rgba(30, 41, 59, 0.7);
-  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --error-color: #ef4444;
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --success: #10b981;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  width: 340px;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  padding: 16px;
-  overflow: hidden;
+  width: 320px;
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 1rem;
 }
 
-.popup-container {
+.popup-launcher {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0.9rem;
 }
 
-.header {
+.launcher-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
 }
 
-.brand {
+.brand-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
-.icon-badge {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--accent-gradient);
+.brand-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+  color: white;
 }
 
-h1 {
-  font-size: 15px;
+.brand-name {
+  font-size: 0.95rem;
   font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.2;
+  color: var(--text);
 }
 
-.subtitle {
-  font-size: 11px;
-  color: var(--text-secondary);
+.brand-plan-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #60a5fa;
+  letter-spacing: 0.05em;
 }
 
-.status-pill {
-  font-size: 11px;
+.status-indicator-badge {
+  font-size: 0.75rem;
   font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
   background: rgba(16, 185, 129, 0.15);
-  color: var(--success-color);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--success);
 }
 
-.status-pill.busy {
-  background: rgba(245, 158, 11, 0.15);
-  color: var(--warning-color);
-  border-color: rgba(245, 158, 11, 0.3);
+.launcher-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 0.85rem;
 }
 
-.main-content {
+.usage-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.usage-label { color: var(--text-muted); }
+.usage-value { font-weight: 600; }
+
+.usage-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.usage-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  transition: width 0.3s ease;
+}
+
+.actions-group {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
 }
 
-.primary-btn {
-  background: var(--accent-gradient);
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35);
-  transition: all 0.2s ease;
+.btn-action {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-}
-
-.primary-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.5);
-}
-
-.primary-btn:active {
-  transform: translateY(0);
-}
-
-.status-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 12px;
-}
-
-.status-header {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
-}
-
-.status-message {
-  color: var(--text-primary);
-  line-height: 1.4;
-  word-break: break-word;
-}
-
-.tab-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.secondary-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 500;
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.btn-action.primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.btn-action.secondary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-action:hover {
+  opacity: 0.9;
+}
+
+.quick-license-section {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.license-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.license-input-row input {
+  flex: 1;
+  padding: 0.45rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 0.75rem;
+  outline: none;
+}
+
+.license-input-row button {
+  padding: 0.45rem 0.75rem;
+  background: #334155;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.launcher-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  transition: all 0.2s ease;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding-top: 0.25rem;
 }
 
-.secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+.launcher-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
 }
 
-.footer {
-  border-top: 1px solid var(--border-color);
-  padding-top: 10px;
-  text-align: center;
-  font-size: 10px;
-  color: var(--text-secondary);
+.launcher-footer a:hover {
+  color: #60a5fa;
 }
